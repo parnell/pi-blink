@@ -1,7 +1,10 @@
 # Test Project
 test:: 
-	python -m unittest
 	pytest tests/*test_*.py
+
+format::
+	toml-sort pyproject.toml
+	mypy --python-version=3.10
 
 # Build the project
 build:: 
