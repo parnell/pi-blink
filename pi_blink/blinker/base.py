@@ -1,7 +1,7 @@
 import collections.abc as c
 import typing as t
 from inspect import iscoroutinefunction
-from typing import Optional
+from typing import Any, Optional
 
 from blinker.base import Signal as BlinkerSignal
 from pydantic import BaseModel, ConfigDict, Field
@@ -11,12 +11,10 @@ from pi_blink.utils.id_utils import get_full_class_name
 
 
 class SignalReturn(BaseModel):
-    listeners: list[t.Any] = Field(
+    listeners: list[Any] = Field(
         default_factory=list, description="The listeners that were called."
     )
-    results: list[t.Any] = Field(
-        default_factory=list, description="The results from the listeners."
-    )
+    results: list[Any] = Field(default_factory=list, description="The results from the listeners.")
     stopped: bool = Field(default=False, description="Whether the signal was stopped.")
     stop_event: Optional[StopEvent] = Field(
         default=None, description="The stop event that stopped the signal."
@@ -24,7 +22,7 @@ class SignalReturn(BaseModel):
     errors: list[Exception] = Field(
         default_factory=list, description="The errors that occurred during the signal."
     )
-    error_listeners: list[t.Any] = Field(
+    error_listeners: list[Any] = Field(
         default_factory=list, description="The listeners that had errors."
     )
 
