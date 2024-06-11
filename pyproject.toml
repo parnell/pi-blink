@@ -2,6 +2,12 @@
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
+[tool.mypy]
+files = ["pi_blink", "tests"]
+pretty = true
+python_version = "3.8"
+show_error_codes = true
+
 [tool.poetry]
 authors = ["leeparnell <152523161+leeparnell@users.noreply.github.com>"]
 description = "Simple event library built on top of Blinker"
@@ -12,6 +18,7 @@ version = "1.0.2.1"
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 blinker = "^1.8.2"
+pydantic = "^2.7.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.1"
