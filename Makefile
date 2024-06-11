@@ -4,7 +4,7 @@ test::
 
 format::
 	toml-sort pyproject.toml
-	mypy --python-version=3.10
+	mypy
 
 # Build the project
 build:: 
