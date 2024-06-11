@@ -1,12 +1,14 @@
 import pytest
+
 from pi_blink.ordered_set import OrderedSet
+
 
 @pytest.fixture
 def ordered_set() -> OrderedSet:
     return OrderedSet([1, 2, 3])
 
 
-def test_add(ordered_set : OrderedSet):
+def test_add(ordered_set: OrderedSet):
     ordered_set.add(4)
     assert 4 in ordered_set
     assert list(ordered_set) == [1, 2, 3, 4]
@@ -61,7 +63,7 @@ def test_pop(ordered_set: OrderedSet):
 
 
 def test_update(ordered_set: OrderedSet):
-    a = [4,5]
+    a = [4, 5]
     ordered_set.update(a)
     assert list(ordered_set) == [1, 2, 3, 4, 5]
 
@@ -94,13 +96,16 @@ def test_copy_returns_int(ordered_set):
     for i in copied_set:
         assert isinstance(i, int)
 
+
 def test_iteration_returns_keys2(ordered_set):
     for i in ordered_set:
         assert isinstance(i, int)
 
+
 def test_iteration_returns_keys(ordered_set):
     keys = list(ordered_set)
     assert keys == [1, 2, 3]
+
 
 if __name__ == "__main__":
     pytest.main([__file__])

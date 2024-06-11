@@ -1,8 +1,10 @@
 import asyncio
-import pytest
-import time
 from dataclasses import dataclass
-from pi_blink.blink import Blink, listener, EventPriority, alistener
+
+import pytest
+
+from pi_blink.blink import Blink, alistener
+
 
 # Define a test event class
 @dataclass

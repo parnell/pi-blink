@@ -1,6 +1,3 @@
-from concurrent.futures import ThreadPoolExecutor
-from multiprocessing import Manager, Process, Queue
-
 import pytest
 
 from pi_blink.blink import blink
@@ -34,6 +31,7 @@ def handle_event_a2(event):
     print(f"~handle_event_a2: {event}")
     return event
 
+
 # Test event processing order
 def test_event_order():
     event_a = EventA()
@@ -41,6 +39,7 @@ def test_event_order():
     blink.send(event_a)
 
     assert event_a.order == ["a1", "a2"]
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

@@ -1,4 +1,3 @@
-
 import pytest
 
 from pi_blink.blink import Blink, EventPriority, listener
@@ -142,6 +141,7 @@ def test_static_method_listener():
     assert event.order == ["s1", "s2"]
     # assert False
 
+
 def test_in_method_class_and_listener():
     class InMethodEvent:
         def __init__(self):
@@ -164,10 +164,12 @@ def test_in_method_class_and_listener():
     Blink.send(event)
     assert event.order == ["in_method_listener_1", "in_method_listener_2"]
 
+
 class MethodEvent:
     def __init__(self):
         self.order = []
         self.modified_by = []
+
 
 def test_in_method_listener():
     @listener(MethodEvent)

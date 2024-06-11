@@ -55,17 +55,17 @@ def test_is_raised():
     with pytest.raises(ValueError):
         Blink.send(event)
 
-    ## Event should still have the order of the 
+    ## Event should still have the order of the
     ## first listener as it's added before the error
     assert event.order == ["b1"]
-    
+
 
 def test_is_safe():
     event = EventB()
     ## this should raise an error
     result = Blink.send_safe(event)
 
-    ## Event should still have the order of the 
+    ## Event should still have the order of the
     ## first listener as it's added before the error
     assert event.order == ["b1", "b2"]
     assert len(result.listeners) == len(result.results) == 1
