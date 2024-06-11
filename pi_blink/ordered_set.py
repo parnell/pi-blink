@@ -10,10 +10,10 @@ class OrderedSet(set):
             for item in iterable:
                 self.add(item)
 
-    def add(self, element: _T):
+    def add(self, element: _T): # type: ignore
         self._data[element] = None
 
-    def discard(self, element: _T):
+    def discard(self, element: _T): # type: ignore
         if element in self._data:
             del self._data[element]
 
@@ -47,7 +47,7 @@ class OrderedSet(set):
         self.discard(key)
         return key
 
-    def update(self, s: Iterable[_T]) -> None:
+    def update(self, s: Iterable[_T]) -> None: # type: ignore
         for item in s:
             self.add(item)
 
