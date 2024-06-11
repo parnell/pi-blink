@@ -13,5 +13,6 @@ build::
 	poetry build
 
 # Publish the project
-publish:: build
+publish:: test format build
 	poetry publish
+
