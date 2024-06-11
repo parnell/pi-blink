@@ -7,29 +7,20 @@ from pi_blink.blink import blink
 class EventA:
     def __init__(self):
         self.order = []
-        self.modified_by = []
 
     def __repr__(self):
-        return f"<EventA order={self.order} modified_by={self.modified_by}>"
+        return f"<EventA order={self.order}>"
 
 
 # Dummy listener functions
 @blink.listener(EventA)
 def handle_event_a1(event):
-    print(f"handle_event_a1: {event}")
     event.order.append("a1")
-    event.modified_by.append("a1")
-    print(f"~handle_event_a1: {event}")
-    return event
 
 
 @blink.listener(EventA)
 def handle_event_a2(event):
-    print(f"handle_event_a2: {event}")
     event.order.append("a2")
-    event.modified_by.append("a2")
-    print(f"~handle_event_a2: {event}")
-    return event
 
 
 # Test event processing order
