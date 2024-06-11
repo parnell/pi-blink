@@ -40,17 +40,6 @@ async def test_async_sending():
     assert event.value == 16
 
 
-## TODO Implement cancel
-# @pytest.mark.asyncio
-# async def test_async_cancel():
-#     event = SampleEvent(value=1)
-#     # Send event using async send
-#     await Blink.asend(event)
-
-#     # Check the results after async listeners have run
-#     assert event.value == 16
-
-
 if __name__ == "__main__":
     testmethod = ""
     pytest.main([__file__, "-k", testmethod])
