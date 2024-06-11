@@ -21,13 +21,14 @@ def handle_event_a1(event):
 @listener(EventA)
 def handle_event_a2(event):
     event.order.append("a2")
-    return event
 
 
 def test_is_stopped():
     event = EventA()
-    Blink.send(event)
+    result = Blink.send(event)
     assert event.order == ["a1"]
+    assert result.stopped
+    assert result.results == []
 
 
 class EventB:
@@ -70,6 +71,36 @@ def test_is_safe():
     assert event.order == ["b1", "b2"]
     assert len(result.listeners) == len(result.results) == 1
     assert result.errors[0].args[0] == "Error in handle_event_b1"
+
+
+class EventC:
+    def __init__(self):
+        self.order = []
+
+    def __repr__(self):
+        return f"<EventC order={self.order}>"
+
+
+@listener(EventC)
+def handle_event_c1(event):
+    event.order.append("c1")
+    return 1, StopEvent()
+
+
+@listener(EventC)
+def handle_event_c2(event):
+    event.order.append("c2")
+
+def test_stop_with_tuple():
+    event = EventC()
+    ## this should raise an error
+    results = Blink.send(event)
+
+    ## Event should still have the order of the
+    ## first listener as it's added before the error
+    assert event.order == ["c1"]
+    assert results.stopped
+    assert results.results == [1]
 
 
 if __name__ == "__main__":

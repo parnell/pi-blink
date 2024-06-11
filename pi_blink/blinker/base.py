@@ -71,10 +71,22 @@ class Signal(BlinkerSignal):
                     sr.error_listeners.append(receiver)
                     continue
                 raise e
-            if isinstance(result, StopEvent):
+            ## Last element of the result tuple is a potential stop event
+            potential_stop = result
+            if isinstance(result, tuple):
+                result, potential_stop = result[:-1], result[-1]
+                if len(result) == 1:
+                    result = result[0]
+
+            if isinstance(potential_stop, StopEvent):
+
+                if result != potential_stop:  ## They want to add a result and stop
+                    sr.results.append(result)
+                    sr.listeners.append(receiver)
+
                 sr.stopped = True
-                sr.stop_event = result
-                result.stopped_by = get_full_class_name(receiver)
+                sr.stop_event = potential_stop
+                sr.stop_event.stopped_by = get_full_class_name(receiver)
                 return sr
             sr.listeners.append(receiver)
             sr.results.append(result)
@@ -117,10 +129,20 @@ class Signal(BlinkerSignal):
                     sr.error_listeners.append(receiver)
                     continue
                 raise e
-            if isinstance(result, StopEvent):
+            ## Last element of the result tuple is a potential stop event
+            potential_stop = result
+            if isinstance(result, tuple):
+                result, potential_stop = result[:-1], result[-1]
+                if len(result) == 1:
+                    result = result[0]
+
+            if isinstance(potential_stop, StopEvent):
+                if result != potential_stop:  ## They want to add a result and stop
+                    sr.results.append(result)
+                    sr.listeners.append(receiver)
                 sr.stopped = True
-                sr.stop_event = result
-                result.stopped_by = get_full_class_name(receiver)
+                sr.stop_event = potential_stop
+                sr.stop_event.stopped_by = get_full_class_name(receiver)
                 return sr
             sr.listeners.append(receiver)
             sr.results.append(result)
